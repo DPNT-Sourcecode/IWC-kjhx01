@@ -12,7 +12,16 @@ def test_init() -> None:
         datetime.now(),
     )
     queue.enqueue(task_submission_companies_house)
-    assert queue.dequeue() == task_submission_companies_house
+    queue.enqueue(
+        TaskSubmission(
+            "companies_house",
+            2,
+            datetime.now() - timedelta(minutes=40),
+        )
+    )
+    assert queue.dequeue().user_id == 2
+    assert queue.dequeue().user_id == 1
+
 
 
 

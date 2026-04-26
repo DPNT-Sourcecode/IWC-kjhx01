@@ -1,7 +1,7 @@
 from .task_types import TaskSubmission, TaskDispatch
 from .queue_solution_legacy import Queue
 from .queue_solution_entrypoint import QueueSolutionEntrypoint
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 
 
 def test_init() -> None:
@@ -69,3 +69,18 @@ def test_de_duplication() -> None:
 
     assert queue.dequeue() == None
     assert queue.size() == 0
+
+
+def test_c() -> None:
+
+    queue = QueueSolutionEntrypoint()
+    queue.enqueue(
+        TaskSubmission(
+            provider="bank_statements",
+            user_id=1,
+            timestamp="2025-10-20 12:00:00",
+        )
+    )
+
+    assert queue.size() == 1
+

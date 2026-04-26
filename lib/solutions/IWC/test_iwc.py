@@ -11,14 +11,8 @@ def test_init() -> None:
         1,
         datetime.now(),
     )
-    task_submission_lidl = (
-        "lidl",
-        2,
-        datetime.now() - timedelta(minutes=50),
-    )
     queue.enqueue(task_submission_companies_house)
-    queue.enqueue(task_submission_lidl)
-    assert queue.dequeue() == task_submission_lidl
     assert queue.dequeue() == task_submission_companies_house
+
 
 

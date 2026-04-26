@@ -18,3 +18,5 @@ def test_init() -> None:
     )
     queue.enqueue(task_submission_companies_house)
     queue.enqueue(task_submission_lidl)
+    assert queue.dequeue() == task_submission_lidl
+    assert queue.dequeue() == task_submission_companies_house

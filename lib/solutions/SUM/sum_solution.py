@@ -11,5 +11,6 @@ def add_two_numbers(num1: int, num2: int) -> int:
 
 class SumSolution:
     def compute(self, x, y):
-        add_two_numbers(x, y)
+        return add_two_numbers(x, y)
+
 

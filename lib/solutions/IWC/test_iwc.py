@@ -23,9 +23,10 @@ def test_init() -> None:
             datetime.now() - timedelta(minutes=40),
         ),
     ]
+    for task in tasks:
+        queue.enqueue(task)
 
     assert queue.size() == 3
-
     assert queue.dequeue().user_id == 2
     assert queue.size() == 2
     assert queue.dequeue().user_id == 1
@@ -33,3 +34,4 @@ def test_init() -> None:
     assert queue.dequeue().user_id == 3
     assert queue.size() == 0
     assert queue.dequeue() == None
+

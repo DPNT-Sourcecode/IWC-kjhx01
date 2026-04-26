@@ -66,7 +66,9 @@ def test_de_duplication() -> None:
     dequed_task.user_id == 1
     dequed_task.provider == "id_verification"
 
+    assert queue.dequeue() == None
     assert queue.size() == 0
+
 
 
 

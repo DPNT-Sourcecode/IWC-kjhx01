@@ -55,6 +55,7 @@ REGISTERED_PROVIDERS: list[Provider] = [
 class Queue:
     def __init__(self):
         self._queue = []
+        self._visited = set()
 
     def _collect_dependencies(self, task: TaskSubmission) -> list[TaskSubmission]:
         provider = next(
@@ -98,6 +99,8 @@ class Queue:
         return timestamp
 
     def enqueue(self, item: TaskSubmission) -> int:
+        if item in self._visited:
+            return self.size
         tasks = [*self._collect_dependencies(item), item]
 
         for task in tasks:
@@ -105,6 +108,7 @@ class Queue:
             metadata.setdefault("priority", Priority.NORMAL)
             metadata.setdefault("group_earliest_timestamp", MAX_TIMESTAMP)
             self._queue.append(task)
+        self._visited.add(item)
         return self.size
 
     def dequeue(self):

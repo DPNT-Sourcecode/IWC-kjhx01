@@ -58,6 +58,7 @@ def test_de_duplication() -> None:
     for task in tasks:
         queue.enqueue(task)
 
+    assert queue.size() == 2
     dequed_task = queue.dequeue()
     dequed_task.user_id == 1
     dequed_task.provider == "bank_statements"
@@ -68,7 +69,3 @@ def test_de_duplication() -> None:
 
     assert queue.dequeue() == None
     assert queue.size() == 0
-
-
-
-

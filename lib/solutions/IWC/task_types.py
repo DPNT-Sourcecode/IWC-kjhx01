@@ -18,6 +18,14 @@ class TaskSubmission:
     def __hash__(self) -> int:
         return hash((self.provider, self.user_id))
 
+    def __eq__(self, other) -> bool:
+        return all(
+            [
+                self.provider == other.provider,
+                self.user_id == other.user_id,
+            ]
+        )
+
 
 @dataclass
 class TaskDispatch:
@@ -28,4 +36,3 @@ class TaskDispatch:
 
 
 __all__ = ["TaskSubmission", "TaskDispatch"]
-

@@ -35,3 +35,20 @@ def test_init() -> None:
     assert queue.size() == 0
     assert queue.dequeue() == None
 
+
+def test_de_duplication() -> None:
+    queue = QueueSolutionEntrypoint()
+    tasks = [
+        TaskSubmission(
+            user_id=1,
+            provider="bank_statements",
+            timestamp="2025-10-20 12:00:00",
+        ),
+        TaskSubmission(
+            user_id=1,
+            provider="bank_statements",
+            timestamp="2025-10-20 12:05:00",
+        ),
+    ]
+
+

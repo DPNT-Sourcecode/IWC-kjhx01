@@ -49,6 +49,24 @@ def test_de_duplication() -> None:
             provider="bank_statements",
             timestamp="2025-10-20 12:05:00",
         ),
+        TaskSubmission(
+            user_id=1,
+            provider="id_verification",
+            timestamp="2025-10-20 12:05:00",
+        ),
     ]
+    for task in tasks:
+        queue.enqueue(task)
+
+    dequed_task = queue.dequeue()
+    dequed_task.user_id == 1
+    dequed_task.provider == "bank_statements"
+
+    dequed_task = queue.dequeue()
+    dequed_task.user_id == 1
+    dequed_task.provider == "id_verification"
+
+    assert queue.size() == 0
+
 
 
